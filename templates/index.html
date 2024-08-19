@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Strength Checker</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Password Strength Checker</h1>
+      <form action="/" method="POST">
+        <label for="password">Enter Password:</label>
+        <div class="password-container">
+          <input type="password" id="password" name="password" required />
+          <div class="toggle-password">
+            <label class="switch">
+              <input
+                type="checkbox"
+                id="showPassword"
+                onclick="togglePassword()"
+              />
+              <span class="slider round"></span>
+            </label>
+            <label for="showPassword" class="toggle-label">Show Password</label>
+          </div>
+        </div>
+        <button type="submit">Check Strength</button>
+      </form>
+
+      {% if strength %}
+      <div class="result">
+        <h2>Password Strength: {{ strength }}</h2>
+        <p>Score: {{ score }}/5</p>
+        {% if recommendations %}
+        <h3>Recommendations:</h3>
+        <ul>
+          {% for rec in recommendations %}
+          <li>{{ rec }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    <script>
+      function togglePassword() {
+        var passwordField = document.getElementById("password");
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+        } else {
+          passwordField.type = "password";
+        }
+      }
+    </script>
+  </body>
+</html>
